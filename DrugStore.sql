@@ -1,0 +1,44 @@
+CREATE DATABASE DrugStoreAppDB;
+USE DrugStoreAppDB
+CREATE TABLE Owners(
+	Id INT PRIMARY KEY IDENTITY(1,1),
+	Name NVARCHAR(50) NOT NULL,
+	Surname NVARCHAR(50) NOT NULL,
+)
+CREATE TABLE DrugStores(
+	Id INT PRIMARY KEY IDENTITY(1,1),
+	Name NVARCHAR(50) NOT NULL,
+	Adress NVARCHAR(200) NOT NULL,
+	ContactNumber NVARCHAR(30) DEFAULT('+994000000000'),
+	CreationDate DATE DEFAULT GETDATE(), CHECK(CreationDate <= GETDATE()),
+	OwnerId INT FOREIGN KEY REFERENCES Owners(Id)
+)
+CREATE TABLE Druggists(
+	Id INT PRIMARY KEY IDENTITY(1,1),
+	Name NVARCHAR(50) NOT NULL,
+	Surname NVARCHAR(50) NOT NULL,
+	Experience INT,
+	Age DATE NOT NULL,
+	DrugStoreId INT FOREIGN KEY REFERENCES DrugStores(Id)
+)
+CREATE TABLE Drugs(
+	Id INT PRIMARY KEY IDENTITY(1,1),
+	Name NVARCHAR(50) NOT NULL,
+	Price DECIMAL,
+	Count INT,
+	DrugStoreId INT FOREIGN KEY REFERENCES DrugStores(Id)
+)
+INSERT INTO Owners (Surname, Name)
+VALUES ('Quluzade', 'Cavid')
+INSERT INTO Owners (Surname, Name)
+VALUES ('AAA', 'AAAA')
+INSERT INTO DrugStores(Name, Adress, ContactNumber, CreationDate, OwnerId)
+VALUES ('DRUGSTORE1', 'Baku', '+994123456789', '2024-01-01', 1)
+INSERT INTO Drugs(Name, Price, Count, DrugStoreId)
+VALUES ('BBB', 4, 10, 1)
+INSERT INTO Druggists
+VALUES ('CCCC', 'CCC', '2006-06-10', 0, 1)
+SELECT * FROM Owners
+SELECT * FROM DrugStores
+SELECT * FROM Druggists
+SELECT * FROM Drugs

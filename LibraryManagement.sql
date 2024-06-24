@@ -1,0 +1,90 @@
+CREATE DATABASE LibraryManagementAppDB
+USE LibraryManagementAppDB
+CREATE TABLE Libraries(
+	Id INT PRIMARY KEY IDENTITY(1, 1),
+	Name NVARCHAR(50) NOT NULL,
+	Adress NVARCHAR(90)
+)
+INSERT INTO Libraries
+VALUES ('LIbrary1', 'Baku')
+INSERT INTO Libraries
+VALUES ('LIbrary2', 'Baku')
+INSERT INTO Libraries
+VALUES ('LIbrary3', 'Baku')
+SELECT * FROM Libraries
+
+CREATE TABLE Genres(
+	Id INT PRIMARY KEY IDENTITY(1, 1),
+	Name NVARCHAR(50) NOT NULL
+)
+INSERT INTO Genres
+VALUES ('Fantastic')
+INSERT INTO Genres
+VALUES ('Detective')
+SELECT * FROM Libraries
+SELECT * FROM Genres
+CREATE TABLE Books(
+	Id INT PRIMARY KEY IDENTITY(1, 1),
+	Name NVARCHAR(50) NOT NULL,
+	Count INT,
+	GenreId INT FOREIGN KEY REFERENCES Genres(Id)
+)
+INSERT INTO Books
+VALUES ('Book1', 5, 1)
+INSERT INTO Books
+VALUES ('Book2', 4, 2)
+INSERT INTO Books
+VALUES ('Book3', 7, 1)
+SELECT * FROM Books
+SELECT * FROM Libraries
+SELECT * FROM Genres
+CREATE TABLE Authors(
+	Id INT PRIMARY KEY IDENTITY(1, 1),
+	Name NVARCHAR(50) NOT NULL,
+	Surname NVARCHAR(50)
+)
+INSERT INTO Authors
+VALUES ('Name1', 'Surname1')
+INSERT INTO Authors
+VALUES ('Name2', 'Surname2')
+INSERT INTO Authors
+VALUES ('Name3', 'Surname3')
+SELECT * FROM Authors
+SELECT * FROM Books
+SELECT * FROM Libraries
+SELECT * FROM Genres
+CREATE TABLE BooksAuthors(
+	Id INT PRIMARY KEY IDENTITY(1, 1),
+	AuthorsId INT FOREIGN KEY REFERENCES Authors(Id),
+	BooksId INT FOREIGN KEY REFERENCES Books(Id)
+)
+INSERT INTO BooksAuthors
+VALUES(1,1)
+INSERT INTO BooksAuthors
+VALUES(2,3)
+INSERT INTO BooksAuthors
+VALUES(2,1)
+SELECT * FROM BooksAuthors
+SELECT * FROM Authors
+SELECT * FROM Books
+SELECT * FROM Libraries
+SELECT * FROM Genres
+CREATE TABLE LibrariesBooksAuthors(
+	Id INT PRIMARY KEY IDENTITY(1, 1),
+	LibraryId INT FOREIGN KEY REFERENCES Libraries(Id),
+	AuthorBooksId INT FOREIGN KEY REFERENCES BooksAuthors(Id)
+)
+INSERT INTO LibrariesBooksAuthors
+VALUES(1,1)
+INSERT INTO LibrariesBooksAuthors
+VALUES(2,1)
+INSERT INTO LibrariesBooksAuthors
+VALUES(1,2)
+INSERT INTO LibrariesBooksAuthors
+VALUES(1,3)
+SELECT * FROM LibrariesBooksAuthors
+SELECT * FROM BooksAuthors
+SELECT * FROM Authors
+SELECT * FROM Books
+SELECT * FROM Libraries
+SELECT * FROM Genres
